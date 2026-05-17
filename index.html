@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jose Juan Rogel · Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0c0e;
+    --surface: #13141a;
+    --surface2: #1a1b24;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.15);
+    --accent: #c8f542;
+    --accent2: #5eead4;
+    --text: #eceae4;
+    --muted: #7a7a88;
+    --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    display: flex; align-items:center; justify-content:space-between;
+    padding: 1.1rem 5rem;
+    background: rgba(11,12,14,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family:'Syne',sans-serif; font-weight:800; font-size:1rem;
+    color: var(--accent); letter-spacing:-0.02em;
+  }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a {
+    font-family:'DM Mono',monospace; font-size:0.75rem;
+    color:var(--muted); text-decoration:none; letter-spacing:0.06em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color:var(--accent); }
+
+  /* LAYOUT */
+  .container { max-width:1080px; margin:0 auto; padding:0 4rem; }
+
+  /* HERO */
+  #hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    justify-content:center; padding-top:6rem; padding-bottom:4rem;
+  }
+  .hero-inner { max-width:1080px; margin:0 auto; padding:0 4rem; }
+  .hero-tag {
+    font-family:'DM Mono',monospace; font-size:0.73rem;
+    color:var(--accent2); letter-spacing:0.14em; text-transform:uppercase;
+    margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;
+  }
+  .hero-tag::before {
+    content:''; display:inline-block; width:20px; height:1px;
+    background:var(--accent2);
+  }
+  .hero-title {
+    font-family:'Syne',sans-serif;
+    font-size: clamp(3rem,6.5vw,5.8rem);
+    font-weight:800; line-height:1.0; letter-spacing:-0.035em;
+    margin-bottom:1.5rem;
+  }
+  .hero-title .line2 { color:var(--accent); }
+  .hero-sub {
+    font-size:1.05rem; color:var(--muted); max-width:520px;
+    margin-bottom:2.5rem; line-height:1.9;
+  }
+  .hero-btns { display:flex; gap:0.9rem; flex-wrap:wrap; margin-bottom:4rem; }
+
+  .btn {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    padding:0.72rem 1.5rem; border-radius:8px;
+    text-decoration:none; cursor:pointer; border:none;
+    font-family:'DM Mono',monospace; font-size:0.78rem;
+    letter-spacing:0.05em; font-weight:500; transition:all .2s;
+  }
+  .btn-primary { background:var(--accent); color:#0b0c0e; }
+  .btn-primary:hover { background:#d9ff55; transform:translateY(-1px); }
+  .btn-outline {
+    background:transparent; color:var(--text);
+    border:1px solid var(--border-hover);
+  }
+  .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+
+  .hero-stats {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;
+  }
+  .stat {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.4rem 1.2rem;
+  }
+  .stat-val {
+    font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800;
+    color:var(--accent); letter-spacing:-0.03em; line-height:1;
+    margin-bottom:0.4rem;
+  }
+  .stat-lbl { font-size:0.78rem; color:var(--muted); }
+
+  /* SECTION COMMON */
+  .section { padding:6rem 0; }
+  .section-inner { max-width:1080px; margin:0 auto; padding:0 4rem; }
+  .section-tag {
+    font-family:'DM Mono',monospace; font-size:0.7rem;
+    color:var(--accent2); letter-spacing:0.14em; text-transform:uppercase;
+    margin-bottom:0.9rem; display:flex; align-items:center; gap:0.5rem;
+  }
+  .section-tag::before {
+    content:''; display:inline-block; width:16px; height:1px;
+    background:var(--accent2);
+  }
+  .section-title {
+    font-family:'Syne',sans-serif;
+    font-size: clamp(1.8rem,3vw,2.5rem);
+    font-weight:700; letter-spacing:-0.025em; margin-bottom:2.5rem; line-height:1.2;
+  }
+  .divider { height:1px; background:var(--border); }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:3.5rem; align-items:start; }
+  .about-text { font-size:0.96rem; color:var(--muted); line-height:1.95; }
+  .about-text p + p { margin-top:1rem; }
+  .about-text strong { color:var(--text); font-weight:500; }
+
+  .skills-block { margin-top:1.75rem; }
+  .skills-block-label {
+    font-family:'DM Mono',monospace; font-size:0.68rem;
+    color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;
+    margin-bottom:0.6rem;
+  }
+  .skills-row { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1rem; }
+  .sk {
+    font-family:'DM Mono',monospace; font-size:0.7rem;
+    padding:0.28rem 0.75rem; border-radius:4px;
+    border:1px solid var(--border); color:var(--muted);
+    letter-spacing:0.04em; transition:all .2s;
+  }
+  .sk:hover { border-color:var(--accent); color:var(--accent); }
+  .sk.hi { border-color:rgba(200,245,66,0.35); color:rgba(200,245,66,0.85); }
+
+  .side-cards { display:flex; flex-direction:column; gap:1rem; }
+  .card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.6rem;
+  }
+  .card h3 {
+    font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+    margin-bottom:0.5rem;
+  }
+  .card p { font-size:0.86rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.7; }
+  .card-links { display:flex; flex-direction:column; gap:0.5rem; }
+  .card-link {
+    display:flex; align-items:center; gap:0.7rem;
+    padding:0.65rem 0.9rem;
+    background:var(--surface2); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; color:var(--text);
+    font-size:0.84rem; transition:all .2s;
+  }
+  .card-link:hover { border-color:var(--accent); color:var(--accent); }
+  .card-link svg { flex-shrink:0; opacity:.65; }
+
+  /* EXPERIENCE */
+  .exp-list { display:flex; flex-direction:column; gap:1.25rem; }
+  .exp-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.8rem;
+    transition: border-color .25s;
+  }
+  .exp-card:hover { border-color:var(--border-hover); }
+  .exp-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.3rem; }
+  .exp-role {
+    font-family:'Syne',sans-serif; font-weight:700; font-size:1.05rem;
+  }
+  .exp-date {
+    font-family:'DM Mono',monospace; font-size:0.72rem;
+    color:var(--muted); letter-spacing:0.04em; white-space:nowrap;
+  }
+  .exp-company {
+    font-family:'DM Mono',monospace; font-size:0.78rem;
+    color:var(--accent2); letter-spacing:0.04em; margin-bottom:1rem;
+  }
+  .exp-bullets { list-style:none; display:flex; flex-direction:column; gap:0.45rem; }
+  .exp-bullets li {
+    font-size:0.88rem; color:var(--muted); line-height:1.7;
+    padding-left:1.1rem; position:relative;
+  }
+  .exp-bullets li::before {
+    content:'›'; position:absolute; left:0; color:var(--accent); font-size:1rem;
+  }
+  .exp-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.1rem; }
+  .exp-tag {
+    font-family:'DM Mono',monospace; font-size:0.67rem;
+    padding:0.2rem 0.6rem; border-radius:4px;
+    background:var(--surface2); color:var(--muted); letter-spacing:0.03em;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:1.25rem;
+  }
+  .proj-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.75rem;
+    display:flex; flex-direction:column;
+    position:relative; overflow:hidden;
+    transition:all .25s;
+  }
+  .proj-card::after {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg,var(--accent),var(--accent2));
+    transform:scaleX(0); transform-origin:left; transition:transform .3s;
+  }
+  .proj-card:hover::after { transform:scaleX(1); }
+  .proj-card:hover { border-color:rgba(200,245,66,0.18); transform:translateY(-2px); }
+
+  .proj-icon {
+    width:38px; height:38px; background:var(--surface2);
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; margin-bottom:1.1rem; flex-shrink:0;
+  }
+  .proj-name { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; margin-bottom:0.4rem; }
+  .proj-desc { font-size:0.86rem; color:var(--muted); line-height:1.75; flex:1; margin-bottom:1rem; }
+  .proj-tags { display:flex; flex-wrap:wrap; gap:0.35rem; }
+  .proj-tag {
+    font-family:'DM Mono',monospace; font-size:0.66rem;
+    padding:0.18rem 0.55rem; border-radius:4px;
+    background:var(--surface2); color:var(--muted);
+  }
+  .proj-link {
+    display:inline-flex; align-items:center; gap:0.35rem;
+    margin-top:1.1rem; font-family:'DM Mono',monospace;
+    font-size:0.73rem; color:var(--accent2); text-decoration:none;
+    transition: gap .2s;
+  }
+  .proj-link:hover { gap:0.55rem; }
+  .proj-badge {
+    position:absolute; top:1.2rem; right:1.2rem;
+    font-family:'DM Mono',monospace; font-size:0.62rem;
+    padding:0.2rem 0.55rem; border-radius:4px;
+    background:rgba(94,234,212,0.12); color:var(--accent2);
+    letter-spacing:0.06em;
+  }
+
+  .github-cta {
+    margin-top:2rem; padding:1.8rem 2rem;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius);
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    flex-wrap:wrap;
+  }
+  .github-cta p { font-size:0.9rem; color:var(--muted); }
+
+  /* EDUCATION */
+  .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+  .edu-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.6rem;
+  }
+  .edu-card .degree {
+    font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem;
+    margin-bottom:0.25rem;
+  }
+  .edu-card .school {
+    font-family:'DM Mono',monospace; font-size:0.75rem;
+    color:var(--accent2); letter-spacing:0.04em; margin-bottom:0.6rem;
+  }
+  .edu-card .edu-detail { font-size:0.84rem; color:var(--muted); line-height:1.7; }
+  .edu-card .edu-years {
+    font-family:'DM Mono',monospace; font-size:0.7rem;
+    color:var(--muted); margin-top:0.7rem; letter-spacing:0.04em;
+  }
+
+  /* CONTACT */
+  .contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:3.5rem; }
+  .contact-info h3 {
+    font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem;
+    margin-bottom:0.75rem;
+  }
+  .contact-info p { font-size:0.9rem; color:var(--muted); line-height:1.8; margin-bottom:1.75rem; }
+  .contact-item {
+    display:flex; align-items:center; gap:0.8rem;
+    padding:0.8rem 1rem; margin-bottom:0.5rem;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; color:var(--text);
+    font-size:0.86rem; transition:all .2s;
+  }
+  .contact-item:hover { border-color:var(--accent); color:var(--accent); }
+  .contact-item svg { flex-shrink:0; opacity:.65; }
+
+  .form-box {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:2rem;
+  }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+  .fg { margin-bottom:1rem; }
+  .fg label {
+    display:block; font-family:'DM Mono',monospace; font-size:0.68rem;
+    color:var(--muted); letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:0.4rem;
+  }
+  .fg input, .fg textarea {
+    width:100%; padding:0.7rem 0.9rem;
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:8px; color:var(--text);
+    font-family:'DM Sans',sans-serif; font-size:0.88rem;
+    transition:border-color .2s; resize:vertical; outline:none;
+  }
+  .fg input:focus, .fg textarea:focus { border-color:var(--accent); }
+  .fg textarea { min-height:110px; }
+  .submit-btn {
+    width:100%; padding:0.82rem;
+    background:var(--accent); color:#0b0c0e;
+    border:none; border-radius:8px; cursor:pointer;
+    font-family:'DM Mono',monospace; font-size:0.8rem;
+    font-weight:500; letter-spacing:0.06em; transition:all .2s;
+  }
+  .submit-btn:hover { background:#d9ff55; transform:translateY(-1px); }
+  .form-ok {
+    display:none; text-align:center; padding:2rem;
+    color:var(--accent2); font-family:'DM Mono',monospace; font-size:0.86rem;
+  }
+
+  /* FOOTER */
+  footer {
+    padding:2rem 4rem; display:flex; justify-content:space-between;
+    align-items:center; max-width:1080px; margin:0 auto;
+    font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--muted);
+    flex-wrap:wrap; gap:0.5rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(22px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .fu { animation: fadeUp .65s ease both; }
+  .d1 { animation-delay:.08s; }
+  .d2 { animation-delay:.2s; }
+  .d3 { animation-delay:.34s; }
+  .d4 { animation-delay:.5s; }
+
+  /* RESPONSIVE */
+  @media(max-width:800px){
+    nav { padding:1rem 1.5rem; }
+    .nav-links { gap:1.2rem; }
+    .hero-inner, .section-inner, footer { padding-left:1.5rem; padding-right:1.5rem; }
+    .hero-stats { grid-template-columns:1fr 1fr; }
+    .about-grid, .contact-grid, .edu-grid { grid-template-columns:1fr; }
+    .form-row { grid-template-columns:1fr; }
+    .github-cta { flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">jjrogel.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-tag fu">Software Engineer · Open to new opportunities</p>
+    <h1 class="hero-title fu d1">
+      Jose Juan<br>
+      <span class="line2">Rogel Ruiz</span>
+    </h1>
+    <p class="hero-sub fu d2">
+      Backend engineer with professional experience in embedded systems at Indra.
+      Focused on Java, Spring Boot &amp; Kafka — building production-grade distributed systems.
+    </p>
+    <div class="hero-btns fu d3">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#projects" class="btn btn-outline">View projects</a>
+      <a href="CV_Jose_Juan_Rogel_English.pdf" download class="btn btn-outline">↓ Download CV</a>
+    </div>
+    <div class="hero-stats fu d4">
+      <div class="stat">
+        <div class="stat-val">Java</div>
+        <div class="stat-lbl">Main language</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">Kafka</div>
+        <div class="stat-lbl">Messaging</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">Indra</div>
+        <div class="stat-lbl">Current employer</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">EU</div>
+        <div class="stat-lbl">Open to relocation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <p class="section-tag">01 / about</p>
+    <h2 class="section-title">Who I am</h2>
+    <div class="about-grid">
+      <div>
+        <div class="about-text">
+          <p>
+            I'm a Computer Engineer with professional experience at <strong>Indra</strong>, where I develop
+            real-time software for mission-critical embedded Linux systems using Ada — an environment
+            that has deeply shaped how I think about robustness, fault tolerance, and software reliability.
+          </p>
+          <p>
+            Outside of work, I've been building production-grade Java/Spring Boot projects to sharpen my
+            backend skills. My main personal project, <strong>FinTrack</strong>, is a microservices platform
+            simulating a banking system — built with Java 21, Spring Boot, Apache Kafka, and Docker.
+          </p>
+          <p>
+            I'm now looking to transition fully into <strong>Java backend roles</strong> in international teams,
+            bringing the discipline of safety-critical development into the world of distributed systems.
+            EU citizen, open to relocation.
+          </p>
+        </div>
+        <div class="skills-block">
+          <p class="skills-block-label">Core focus</p>
+          <div class="skills-row">
+            <span class="sk hi">Java 21</span>
+            <span class="sk hi">Spring Boot 3</span>
+            <span class="sk hi">Apache Kafka</span>
+            <span class="sk hi">Spring Security</span>
+            <span class="sk hi">Spring Data JPA</span>
+            <span class="sk hi">REST APIs</span>
+          </div>
+          <p class="skills-block-label">Infrastructure &amp; testing</p>
+          <div class="skills-row">
+            <span class="sk">Docker</span>
+            <span class="sk">PostgreSQL</span>
+            <span class="sk">Maven</span>
+            <span class="sk">Git</span>
+            <span class="sk">JUnit 5</span>
+            <span class="sk">Mockito</span>
+            <span class="sk">Linux</span>
+          </div>
+          <p class="skills-block-label">Other languages</p>
+          <div class="skills-row">
+            <span class="sk">Ada</span>
+            <span class="sk">C++</span>
+            <span class="sk">Python</span>
+            <span class="sk">React</span>
+            <span class="sk">PHP / Laravel</span>
+          </div>
+        </div>
+      </div>
+      <div class="side-cards">
+        <div class="card">
+          <h3>My CV</h3>
+          <p>Download my full resume with detailed experience, education and technical background.</p>
+          <a href="CV_Jose_Juan_Rogel_English.pdf" download class="btn btn-outline" style="width:100%;justify-content:center;margin-bottom:0.6rem;">
+            ↓ CV in English
+          </a>
+          <a href="CV_Jose_Juan_Rogel_Español.pdf" download class="btn btn-outline" style="width:100%;justify-content:center;">
+            ↓ CV en Español
+          </a>
+        </div>
+        <div class="card">
+          <h3>Find me online</h3>
+          <p>Code, projects and professional profile.</p>
+          <div class="card-links">
+            <a href="https://github.com/Jroogel11" target="_blank" class="card-link">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              github.com/Jroogel11
+            </a>
+            <a href="https://www.linkedin.com/in/josejuanrogelruiz" target="_blank" class="card-link">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              linkedin.com/in/josejuanrogelruiz
+            </a>
+            <a href="mailto:josejuanrogelruiz11@gmail.com" class="card-link">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              josejuanrogelruiz11@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-inner">
+    <p class="section-tag">02 / experience</p>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Software Engineer</div>
+          <div class="exp-date">Oct 2024 — Present</div>
+        </div>
+        <div class="exp-company">Indra · Torrejón de Ardoz, Spain</div>
+        <ul class="exp-bullets">
+          <li>Development of real-time embedded software in Ada for mission-critical Linux-based systems, focusing on performance and system efficiency.</li>
+          <li>Implementation of business logic and process control in high-reliability environments, with emphasis on robustness and fault tolerance.</li>
+          <li>Full development lifecycle following the V-model: design, implementation, testing, and validation under real-time constraints.</li>
+          <li>Collaborative code reviews and system verification in structured Agile teams using Git.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Ada</span>
+          <span class="exp-tag">C++</span>
+          <span class="exp-tag">Linux</span>
+          <span class="exp-tag">Real-time systems</span>
+          <span class="exp-tag">V-model</span>
+          <span class="exp-tag">Git</span>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Full Stack Developer</div>
+          <div class="exp-date">Sep 2023 — Nov 2023</div>
+        </div>
+        <div class="exp-company">Grupo Marwen Calsan · Mengíbar, Spain</div>
+        <ul class="exp-bullets">
+          <li>Developed and maintained full-stack web applications for small businesses using PHP and Laravel.</li>
+          <li>Managed relational databases and REST API integrations; delivered features from design to production in a small Agile team.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">PHP</span>
+          <span class="exp-tag">Laravel</span>
+          <span class="exp-tag">REST APIs</span>
+          <span class="exp-tag">MySQL</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-inner">
+    <p class="section-tag">03 / projects</p>
+    <h2 class="section-title">What I've built</h2>
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <span class="proj-badge">featured</span>
+        <div class="proj-icon">🏦</div>
+        <div class="proj-name">FinTrack</div>
+        <div class="proj-desc">
+          Production-ready microservices platform simulating a banking system. 4 independent services
+          (API Gateway, Auth, Account, Transaction), JWT with token rotation, async balance updates
+          via Kafka, 9 Docker containers and 26 unit tests.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Java 21</span>
+          <span class="proj-tag">Spring Boot 3.4</span>
+          <span class="proj-tag">Apache Kafka</span>
+          <span class="proj-tag">Spring Security</span>
+          <span class="proj-tag">JWT</span>
+          <span class="proj-tag">PostgreSQL</span>
+          <span class="proj-tag">Docker</span>
+          <span class="proj-tag">JUnit 5</span>
+        </div>
+        <a href="https://github.com/Jroogel11/FinTrack_Proyect" target="_blank" class="proj-link">
+          View on GitHub →
+        </a>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-icon">💈</div>
+        <div class="proj-name">BarberApp</div>
+        <div class="proj-desc">
+          Final Degree Thesis — full-stack appointment management system for barbershops.
+          Automated Google Calendar reminders, real-time Firebase Firestore sync, and a
+          mobile-first responsive UI for salon staff.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">React</span>
+          <span class="proj-tag">Node.js</span>
+          <span class="proj-tag">Firebase</span>
+          <span class="proj-tag">Google Calendar API</span>
+        </div>
+        <a href="https://github.com/Jroogel11" target="_blank" class="proj-link">
+          View on GitHub →
+        </a>
+      </div>
+
+    </div>
+
+    <div class="github-cta">
+      <p>More repositories and contributions available on my GitHub profile</p>
+      <a href="https://github.com/Jroogel11" target="_blank" class="btn btn-outline">
+        → github.com/Jroogel11
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="section-inner">
+    <p class="section-tag">04 / education</p>
+    <h2 class="section-title">Academic background</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="degree">BSc in Computer Engineering</div>
+        <div class="school">Universidad de Jaén · Spain</div>
+        <div class="edu-detail">
+          Final Thesis: BarberApp — full-stack appointment management system with Google Calendar integration (React, Node.js, Firebase).
+        </div>
+        <div class="edu-years">2018 – 2024</div>
+      </div>
+      <div class="edu-card">
+        <div class="degree">Erasmus+ Exchange</div>
+        <div class="school">Uniwersytet Marii Curie-Skłodowskiej · Poland</div>
+        <div class="edu-detail">
+          International exchange in Computer Engineering. Developed cross-cultural communication and technical skills in a multilingual environment.
+        </div>
+        <div class="edu-years">Sep 2021 – Jun 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <p class="section-tag">05 / contact</p>
+    <h2 class="section-title">Let's talk</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Open to new opportunities</h3>
+        <p>
+          I'm actively looking for Java backend roles in international teams.
+          Whether you have a specific position or just want to connect, feel free to reach out — I respond quickly.
+        </p>
+        <a href="mailto:josejuanrogelruiz11@gmail.com" class="contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          josejuanrogelruiz11@gmail.com
+        </a>
+        <a href="tel:+34605468934" class="contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          +34 605 468 934
+        </a>
+        <a href="https://github.com/Jroogel11" target="_blank" class="contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github.com/Jroogel11
+        </a>
+        <a href="https://www.linkedin.com/in/josejuanrogelruiz" target="_blank" class="contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/josejuanrogelruiz
+        </a>
+      </div>
+
+      <div class="form-box">
+        <div id="form-fields">
+          <div class="form-row">
+            <div class="fg">
+              <label>Name</label>
+              <input type="text" id="fname" name="name" placeholder="Your name">
+            </div>
+            <div class="fg">
+              <label>Company</label>
+              <input type="text" id="fcompany" name="company" placeholder="Optional">
+            </div>
+          </div>
+          <div class="fg">
+            <label>Email</label>
+            <input type="email" id="femail" name="email" placeholder="your@email.com">
+          </div>
+          <div class="fg">
+            <label>Message</label>
+            <textarea id="fmessage" name="message" placeholder="Tell me about the role or project..."></textarea>
+          </div>
+          <button class="submit-btn" onclick="submitForm()">Send message →</button>
+        </div>
+        <div class="form-ok" id="form-ok">
+          ✓ Thanks! I'll get back to you as soon as possible.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer>
+  <span>Jose Juan Rogel Ruiz · Software Engineer</span>
+  <span style="color:var(--accent)">Open to opportunities · EU citizen</span>
+  <span>© 2025</span>
+</footer>
+
+<script>
+async function submitForm() {
+  const name    = document.getElementById('fname').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const company = document.getElementById('fcompany').value.trim();
+  const msg     = document.getElementById('fmessage').value.trim();
+
+  if (!name || !email || !msg) {
+    alert('Please fill in your name, email and message.');
+    return;
+  }
+
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  const FORMSPREE_ID = 'xqejkark';
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, company, message: msg })
+    });
+
+    if (res.ok) {
+      document.getElementById('form-fields').style.display = 'none';
+      document.getElementById('form-ok').style.display = 'block';
+    } else {
+      btn.textContent = 'Error — try again';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    btn.textContent = 'Error — try again';
+    btn.disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>

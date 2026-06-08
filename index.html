@@ -432,9 +432,11 @@
             that has deeply shaped how I think about robustness, fault tolerance, and software reliability.
           </p>
           <p>
-            Outside of work, I've built two production-grade Java/Spring Boot projects focused on event-driven
-            architectures. <strong>fraud-detection-service</strong> is a real-time fraud detection system using
-            Kafka, Spring Security with JWT, the Strategy Pattern, and integration tests with Testcontainers.
+            Outside of work, I've built three production-grade Java/Spring Boot projects focused on event-driven
+            architectures. <strong>claims-event-sourcing</strong> is an insurance claims management system built
+            with Event Sourcing and CQRS — every state change is stored as an immutable Kafka event, with full
+            audit history and state machine validation. <strong>fraud-detection-service</strong> is a real-time
+            fraud detection system using Kafka, Spring Security with JWT, and the Strategy Pattern.
             <strong>FinTrack</strong> is a microservices platform simulating a banking system with 4 independent
             services, Kafka, and Docker.
           </p>
@@ -447,7 +449,7 @@
           <p class="skills-block-label">Core focus</p>
           <div class="skills-row">
             <span class="sk hi">Java 21</span>
-            <span class="sk hi">Spring Boot 3</span>
+            <span class="sk hi">Spring Boot 4</span>
             <span class="sk hi">Apache Kafka</span>
             <span class="sk hi">Spring Security</span>
             <span class="sk hi">Spring Data JPA</span>
@@ -464,6 +466,14 @@
             <span class="sk">Testcontainers</span>
             <span class="sk">GitHub Actions</span>
             <span class="sk">Linux</span>
+          </div>
+          <p class="skills-block-label">Patterns &amp; design</p>
+          <div class="skills-row">
+            <span class="sk hi">Event Sourcing</span>
+            <span class="sk hi">CQRS</span>
+            <span class="sk">Microservices</span>
+            <span class="sk">Strategy Pattern</span>
+            <span class="sk">State Machine</span>
           </div>
           <p class="skills-block-label">Other languages</p>
           <div class="skills-row">
@@ -570,6 +580,31 @@
     <p class="section-tag">03 / projects</p>
     <h2 class="section-title">What I've built</h2>
     <div class="projects-grid">
+
+      <div class="proj-card">
+        <span class="proj-badge">featured</span>
+        <div class="proj-icon">📋</div>
+        <div class="proj-name">claims-event-sourcing</div>
+        <div class="proj-desc">
+          Insurance claims management system built with Event Sourcing and CQRS. Every state change
+          is stored as an immutable event in Kafka — giving full audit history of each claim.
+          State machine validation enforces legal transitions, Spring Boot 4 / Java 21,
+          PostgreSQL read model, and CI pipeline with GitHub Actions.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Java 21</span>
+          <span class="proj-tag">Spring Boot 4</span>
+          <span class="proj-tag">Event Sourcing</span>
+          <span class="proj-tag">CQRS</span>
+          <span class="proj-tag">Apache Kafka</span>
+          <span class="proj-tag">PostgreSQL</span>
+          <span class="proj-tag">Mockito</span>
+          <span class="proj-tag">GitHub Actions</span>
+        </div>
+        <a href="https://github.com/Jroogel11/Claims-events-application" target="_blank" class="proj-link">
+          View on GitHub →
+        </a>
+      </div>
 
       <div class="proj-card">
         <span class="proj-badge">featured</span>
